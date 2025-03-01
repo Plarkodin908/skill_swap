@@ -46,3 +46,17 @@
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(100, 255, 218, 0.1);
 }
+
+@layer components {
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-mint after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-mint/10 hover:-translate-y-1;
+  }
+}

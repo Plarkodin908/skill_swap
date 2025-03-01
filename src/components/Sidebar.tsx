@@ -7,13 +7,15 @@ import {
   Home, 
   ShoppingBag, 
   MessageSquare, 
-  Calendar, 
   BookOpen, 
   Users,
   User,
   Settings,
   Menu,
-  X
+  X,
+  GraduationCap,
+  BookText,
+  Brain
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -26,12 +28,11 @@ const Sidebar = () => {
   
   const menuItems = [
     { path: "/", label: "Home", icon: Home },
-    { path: "/marketplace", label: "Marketplace", icon: ShoppingBag },
+    { path: "/marketplace", label: "Course Marketplace", icon: ShoppingBag },
     { path: "/messages", label: "Messages", icon: MessageSquare },
-    { path: "/calendar", label: "Calendar", icon: Calendar },
-    { path: "/tutorials", label: "Tutorials", icon: BookOpen },
+    { path: "/tutorials", label: "Tutorials & Resources", icon: BookOpen },
     { path: "/community", label: "Community", icon: Users },
-    { path: "/dashboard", label: "Dashboard", icon: User },
+    { path: "/dashboard", label: "My Learning", icon: GraduationCap },
   ];
   
   return (
@@ -56,7 +57,14 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center justify-center mb-8">
-            <h1 className="text-2xl font-bold text-mint">SKILL SWAP</h1>
+            <Link to="/" className="flex flex-col items-center hover:opacity-90 transition-opacity">
+              <img 
+                src="/lovable-uploads/971a0525-9509-4c96-9f90-66e481b188bc.png" 
+                alt="SKILL SWAP Logo" 
+                className="h-12 w-auto hover-scale transition-transform"
+              />
+              <h1 className="text-lg font-bold text-mint mt-2">SKILL SWAP</h1>
+            </Link>
           </div>
           
           <nav className="flex-grow">
@@ -68,10 +76,10 @@ const Sidebar = () => {
                     <Link 
                       to={item.path} 
                       className={`
-                        flex items-center gap-3 px-3 py-2 rounded-lg transition-colors
+                        flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200
                         ${isActive 
-                          ? 'bg-mint text-forest font-medium' 
-                          : 'text-white/80 hover:bg-mint/10 hover:text-mint'}
+                          ? 'bg-mint text-forest font-medium translate-x-1' 
+                          : 'text-white/80 hover:bg-mint/10 hover:text-mint hover:translate-x-1'}
                       `}
                     >
                       <item.icon className="h-5 w-5" />
@@ -87,7 +95,7 @@ const Sidebar = () => {
           
           <Link 
             to="/settings" 
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:bg-mint/10 hover:text-mint transition-colors"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:bg-mint/10 hover:text-mint hover:translate-x-1 transition-all duration-200"
           >
             <Settings className="h-5 w-5" />
             <span>Settings</span>
@@ -99,11 +107,11 @@ const Sidebar = () => {
                 <User className="h-6 w-6 text-mint" />
               </div>
               <p className="text-white font-medium">John Doe</p>
-              <p className="text-white/60 text-sm">Professional</p>
+              <p className="text-white/60 text-sm">Educator</p>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="mt-2 border-mint/20 text-mint hover:bg-mint/10 text-xs"
+                className="mt-2 border-mint/20 text-mint hover:bg-mint/10 text-xs hover-scale"
               >
                 View Profile
               </Button>
