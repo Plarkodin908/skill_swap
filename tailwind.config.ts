@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +20,7 @@ export default {
     },
     extend: {
       colors: {
+        black: "#000000",
         forest: {
           DEFAULT: "#0A1F2F", // Main background color
           light: "#132B41", // Slightly lighter variant for cards/sections

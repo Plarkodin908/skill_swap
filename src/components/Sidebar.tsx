@@ -56,7 +56,7 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center justify-center mb-8">
-            <h1 className="text-2xl font-bold text-mint">SkillMatch</h1>
+            <h1 className="text-2xl font-bold text-mint">SKILL SWAP</h1>
           </div>
           
           <nav className="flex-grow">
