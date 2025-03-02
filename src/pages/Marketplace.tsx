@@ -1,17 +1,32 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, Plus, BookOpen, Upload, PlusCircle } from "lucide-react";
+import { 
+  Search, 
+  Filter, 
+  Plus, 
+  BookOpen, 
+  Upload, 
+  PlusCircle, 
+  Check, 
+  Star,
+  Clock,
+  TrendingUp,
+  BrainCircuit,
+  X
+} from "lucide-react";
 import { toast } from "sonner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
 
 const Marketplace = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
   
-  // Sample search suggestions
   const searchSuggestions = [
     "Web Development",
     "Data Science",
@@ -23,7 +38,6 @@ const Marketplace = () => {
     "React",
   ];
   
-  // Handle click outside to close suggestions
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
@@ -72,7 +86,6 @@ const Marketplace = () => {
             onFocus={() => setShowSuggestions(true)}
           />
           
-          {/* Search suggestions */}
           {showSuggestions && (
             <div 
               ref={suggestionsRef}
@@ -99,7 +112,6 @@ const Marketplace = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {/* Empty state with call to action */}
         <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
           <div className="bg-forest-light p-8 rounded-lg border border-mint/20 max-w-lg w-full">
             <BookOpen className="h-16 w-16 text-mint mx-auto mb-4 opacity-80" />
