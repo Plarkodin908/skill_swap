@@ -75,7 +75,7 @@ This project is licensed under the MIT License . See the LICENSE.txt file for mo
 Contact
 For questions, feedback, or collaboration opportunities, feel free to reach out:
 
-Email : plarkodin@gmail.com
+Email : plarkodin@gmail.com.
 GitHub : @Plarkodin908
 Project Link : https;//skillswap00980.vercel.app
 Acknowledgments.
