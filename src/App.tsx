@@ -14,6 +14,7 @@ import Pricing from "./pages/Pricing";
 import Company from "./pages/Company";
 import Legal from "./pages/Legal";
 import Tutorials from "./pages/Tutorials";
+import Settings from "./pages/Settings";
 import Sidebar from "./components/Sidebar";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const AppLayout = () => {
           <Route path="/company" element={<Company />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/tutorials" element={<Tutorials />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </div>
