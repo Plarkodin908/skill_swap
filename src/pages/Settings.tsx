@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,10 +37,15 @@ import {
   Moon,
   Sun,
   ImagePlus,
-  CheckCircle
+  CheckCircle,
+  Save,
+  RefreshCw
 } from "lucide-react";
 
 const Settings = () => {
+  // Page load animation
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
+  
   // State for various settings
   const [profileImage, setProfileImage] = useState("/lovable-uploads/971a0525-9509-4c96-9f90-66e481b188bc.png");
   const [darkMode, setDarkMode] = useState(false);
@@ -65,17 +70,30 @@ const Settings = () => {
   const [userInterests, setUserInterests] = useState([
     "Web Development", "Mobile Apps", "Machine Learning"
   ]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [activeAccentColor, setActiveAccentColor] = useState("mint");
+
+  useEffect(() => {
+    setIsPageLoaded(true);
+  }, []);
 
   // Handle profile image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setIsSaving(true);
       // In a real app, you'd upload this to a server
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
-          setProfileImage(e.target.result as string);
-          toast.success("Profile picture updated successfully!");
+          setTimeout(() => {
+            setProfileImage(e.target.result as string);
+            setIsSaving(false);
+            toast.success("Profile picture updated successfully!", {
+              description: "Your new profile picture has been saved.",
+              icon: <CheckCircle className="h-4 w-4 text-green-500" />
+            });
+          }, 1000);
         }
       };
       reader.readAsDataURL(file);
@@ -84,54 +102,181 @@ const Settings = () => {
 
   // Toggle dark/light mode
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    toast.success(`${!darkMode ? "Dark" : "Light"} mode activated!`);
+    setIsSaving(true);
+    setTimeout(() => {
+      setDarkMode(!darkMode);
+      setIsSaving(false);
+      toast.success(`${!darkMode ? "Dark" : "Light"} mode activated!`, {
+        description: `Your theme preference has been saved.`,
+        icon: !darkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />
+      });
+      // In a real app, this would update the theme in the DOM
+    }, 800);
   };
 
   // Handle form submissions with toast notifications
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Profile information updated successfully!");
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("Profile information updated successfully!", {
+        description: "Your profile changes have been saved.",
+        icon: <CheckCircle className="h-4 w-4 text-green-500" />
+      });
+    }, 1000);
   };
 
   const handleChangePassword = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Password changed successfully!");
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("Password changed successfully!", {
+        description: "Your password has been updated. You'll need to use it next time you log in.",
+        icon: <CheckCircle className="h-4 w-4 text-green-500" />
+      });
+    }, 1000);
   };
 
   const handle2FAToggle = () => {
-    setTwoFactorEnabled(!twoFactorEnabled);
-    toast.success(`Two-factor authentication ${!twoFactorEnabled ? "enabled" : "disabled"}!`);
+    setIsSaving(true);
+    setTimeout(() => {
+      setTwoFactorEnabled(!twoFactorEnabled);
+      setIsSaving(false);
+      toast.success(`Two-factor authentication ${!twoFactorEnabled ? "enabled" : "disabled"}!`, {
+        description: `Your account is now ${!twoFactorEnabled ? "more secure" : "less secure but easier to access"}.`,
+        icon: <CheckCircle className="h-4 w-4 text-green-500" />
+      });
+    }, 800);
   };
 
   const handleDeleteAccount = () => {
     // In a real app, this would show a confirmation dialog
-    toast.error("This action would delete your account permanently.");
+    toast.error("This action would delete your account permanently.", {
+      description: "Please contact support if you really want to delete your account.",
+      duration: 5000
+    });
   };
 
   const handleExportData = () => {
-    toast.success("Your data export has been initiated. You'll receive a download link shortly.");
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("Your data export has been initiated.", {
+        description: "You'll receive a download link via email shortly.",
+        icon: <Download className="h-4 w-4" />
+      });
+    }, 1500);
   };
 
   const handleLogoutOtherDevices = () => {
-    toast.success("All other devices have been logged out.");
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("All other devices have been logged out.", {
+        description: "Your account is now only active on this device.",
+        icon: <LogOut className="h-4 w-4" />
+      });
+    }, 1000);
+  };
+
+  const handleAccentColorChange = (color: string) => {
+    setIsSaving(true);
+    setTimeout(() => {
+      setActiveAccentColor(color);
+      setIsSaving(false);
+      toast.success(`Accent color changed to ${color}!`, {
+        description: "Your color preference has been saved.",
+        icon: <Palette className="h-4 w-4" />
+      });
+      // In a real app, this would update the accent color in the app
+    }, 800);
   };
 
   // Add/Remove skills and interests
   const removeSkill = (skill: string) => {
     setUserSkills(userSkills.filter(s => s !== skill));
+    toast.success(`Skill "${skill}" removed.`);
   };
 
   const removeInterest = (interest: string) => {
     setUserInterests(userInterests.filter(i => i !== interest));
+    toast.success(`Interest "${interest}" removed.`);
+  };
+
+  const handleSaveLanguage = () => {
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("Language and region settings saved!", {
+        description: "Your preferences have been updated.",
+        icon: <Globe className="h-4 w-4" />
+      });
+    }, 1000);
+  };
+
+  const handleSaveNotifications = (type: 'email' | 'app') => {
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success(`${type === 'email' ? 'Email' : 'In-app'} notification preferences saved!`, {
+        description: "You'll now receive notifications based on your preferences.",
+        icon: <Bell className="h-4 w-4" />
+      });
+    }, 1000);
+  };
+
+  const handleSaveVisibility = () => {
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("Visibility settings saved!", {
+        description: `Your profile is now visible to ${visibility === 'public' ? 'everyone' : visibility === 'connections' ? 'your connections only' : 'only you'}.`,
+        icon: <Eye className="h-4 w-4" />
+      });
+    }, 1000);
+  };
+
+  const handleAddSkill = () => {
+    const input = document.getElementById('add-skill') as HTMLInputElement;
+    if (input.value) {
+      setUserSkills([...userSkills, input.value]);
+      input.value = '';
+      toast.success("Skill added!", {
+        description: "Your skill list has been updated.",
+        icon: <CheckCircle className="h-4 w-4 text-green-500" />
+      });
+    }
+  };
+
+  const handleAddInterest = () => {
+    const input = document.getElementById('add-interest') as HTMLInputElement;
+    if (input.value) {
+      setUserInterests([...userInterests, input.value]);
+      input.value = '';
+      toast.success("Interest added!", {
+        description: "Your interests have been updated.",
+        icon: <CheckCircle className="h-4 w-4 text-green-500" />
+      });
+    }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className={`container mx-auto px-4 py-8 max-w-6xl transition-opacity duration-500 ${isPageLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-mint mb-2">Settings</h1>
         <p className="text-white/60">Manage your account preferences and profile information</p>
       </div>
+
+      {isSaving && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-forest p-6 rounded-xl flex items-center space-x-4">
+            <RefreshCw className="h-6 w-6 text-mint animate-spin" />
+            <span className="text-white font-medium">Saving changes...</span>
+          </div>
+        </div>
+      )}
 
       <Tabs defaultValue="account" className="w-full">
         <TabsList className="grid grid-cols-4 lg:grid-cols-8 mb-8 bg-forest p-1 rounded-xl">
@@ -169,10 +314,10 @@ const Settings = () => {
           </TabsTrigger>
         </TabsList>
 
-        <div className="bg-forest-light rounded-xl p-6 border border-mint/10">
+        <div className="bg-forest-light rounded-xl p-6 border border-mint/10 transition-all duration-300">
           <ScrollArea className="h-[calc(100vh-300px)]">
             {/* Account Tab */}
-            <TabsContent value="account" className="space-y-6">
+            <TabsContent value="account" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -243,7 +388,8 @@ const Settings = () => {
                     </div>
                     
                     <div className="flex justify-end">
-                      <Button type="submit" className="bg-mint text-forest hover:bg-mint/90">
+                      <Button type="submit" className="bg-mint text-forest hover:bg-mint/90 flex items-center gap-2">
+                        <Save className="h-4 w-4" />
                         Save Changes
                       </Button>
                     </div>
@@ -253,7 +399,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Privacy Tab */}
-            <TabsContent value="privacy" className="space-y-6">
+            <TabsContent value="privacy" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -289,7 +435,8 @@ const Settings = () => {
                     </div>
                   </RadioGroup>
                   
-                  <Button onClick={() => toast.success("Visibility settings saved!")} className="bg-mint text-forest hover:bg-mint/90">
+                  <Button onClick={handleSaveVisibility} className="bg-mint text-forest hover:bg-mint/90 flex items-center gap-2">
+                    <Save className="h-4 w-4" />
                     Save Visibility Settings
                   </Button>
                 </CardContent>
@@ -319,7 +466,7 @@ const Settings = () => {
                   </div>
                   
                   {twoFactorEnabled && (
-                    <div className="bg-forest-dark p-4 rounded-lg border border-mint/10 mt-4">
+                    <div className="bg-forest-dark p-4 rounded-lg border border-mint/10 mt-4 animate-in fade-in duration-300">
                       <div className="text-sm mb-2">Scan this QR code with your authentication app:</div>
                       <div className="w-40 h-40 mx-auto bg-white p-2 rounded-md mb-4">
                         {/* This would be a real QR code in a production app */}
@@ -354,7 +501,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Notifications Tab */}
-            <TabsContent value="notifications" className="space-y-6">
+            <TabsContent value="notifications" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -421,9 +568,10 @@ const Settings = () => {
                   </div>
                   
                   <Button 
-                    onClick={() => toast.success("Email notification preferences saved!")}
-                    className="bg-mint text-forest hover:bg-mint/90 mt-4"
+                    onClick={() => handleSaveNotifications('email')}
+                    className="bg-mint text-forest hover:bg-mint/90 mt-4 flex items-center gap-2"
                   >
+                    <Save className="h-4 w-4" />
                     Save Email Preferences
                   </Button>
                 </CardContent>
@@ -495,17 +643,18 @@ const Settings = () => {
                   </div>
                   
                   <Button 
-                    onClick={() => toast.success("In-app notification preferences saved!")}
-                    className="bg-mint text-forest hover:bg-mint/90 mt-4"
+                    onClick={() => handleSaveNotifications('app')}
+                    className="bg-mint text-forest hover:bg-mint/90 mt-4 flex items-center gap-2"
                   >
+                    <Save className="h-4 w-4" />
                     Save In-App Preferences
                   </Button>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            {/* Appearance Tab */}
-            <TabsContent value="appearance" className="space-y-6">
+            {/* Appearance Tab - Enhanced with better animation and interaction */}
+            <TabsContent value="appearance" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -524,7 +673,7 @@ const Settings = () => {
                         <Button
                           variant="outline"
                           onClick={toggleDarkMode}
-                          className={`flex items-center gap-2 ${!darkMode ? 'border-mint text-mint' : 'border-white/10'}`}
+                          className={`flex items-center gap-2 transition-all duration-300 ${!darkMode ? 'border-mint text-mint bg-mint/10 ring-2 ring-mint/20' : 'border-white/10'}`}
                         >
                           <Sun className="h-4 w-4" />
                           Light
@@ -532,7 +681,7 @@ const Settings = () => {
                         <Button
                           variant="outline"
                           onClick={toggleDarkMode}
-                          className={`flex items-center gap-2 ${darkMode ? 'border-mint text-mint' : 'border-white/10'}`}
+                          className={`flex items-center gap-2 transition-all duration-300 ${darkMode ? 'border-mint text-mint bg-mint/10 ring-2 ring-mint/20' : 'border-white/10'}`}
                         >
                           <Moon className="h-4 w-4" />
                           Dark
@@ -544,15 +693,15 @@ const Settings = () => {
                     
                     <div>
                       <div className="font-medium mb-2">Accent Color</div>
-                      <div className="grid grid-cols-4 gap-2">
+                      <div className="grid grid-cols-4 gap-4">
                         {["mint", "blue", "purple", "orange", "pink", "red", "green", "yellow"].map((color) => (
-                          <div key={color} className="flex flex-col items-center space-y-1">
+                          <div key={color} className="flex flex-col items-center space-y-2">
                             <button 
-                              className={`w-8 h-8 rounded-full border-2 ${color === 'mint' ? 'border-white bg-mint' : 'border-transparent'}`}
+                              className={`w-10 h-10 rounded-full border-2 transition-all duration-300 transform hover:scale-110 ${color === activeAccentColor ? 'border-white ring-2 ring-white/30' : 'border-transparent'}`}
                               style={{ backgroundColor: colorMapping[color] }}
-                              onClick={() => toast.success(`Accent color changed to ${color}!`)}
+                              onClick={() => handleAccentColorChange(color)}
                             >
-                              {color === 'mint' && <CheckCircle className="h-4 w-4 text-forest" />}
+                              {color === activeAccentColor && <CheckCircle className="h-5 w-5 text-white" />}
                             </button>
                             <span className="text-xs capitalize">{color}</span>
                           </div>
@@ -565,7 +714,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Language & Region Tab */}
-            <TabsContent value="language" className="space-y-6">
+            <TabsContent value="language" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -631,9 +780,10 @@ const Settings = () => {
                   </div>
                   
                   <Button 
-                    onClick={() => toast.success("Language and region settings saved!")}
-                    className="bg-mint text-forest hover:bg-mint/90 mt-4"
+                    onClick={handleSaveLanguage}
+                    className="bg-mint text-forest hover:bg-mint/90 mt-4 flex items-center gap-2"
                   >
+                    <Save className="h-4 w-4" />
                     Save Language & Region
                   </Button>
                 </CardContent>
@@ -641,7 +791,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Security Tab */}
-            <TabsContent value="security" className="space-y-6">
+            <TabsContent value="security" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -672,7 +822,8 @@ const Settings = () => {
                       <Input id="confirm-password" type="password" className="bg-forest-dark border-mint/10" />
                     </div>
                     
-                    <Button type="submit" className="bg-mint text-forest hover:bg-mint/90">
+                    <Button type="submit" className="bg-mint text-forest hover:bg-mint/90 flex items-center gap-2">
+                      <Lock className="h-4 w-4" />
                       Change Password
                     </Button>
                   </form>
@@ -732,9 +883,9 @@ const Settings = () => {
                   <Button 
                     onClick={handleLogoutOtherDevices}
                     variant="destructive"
-                    className="w-full mt-4"
+                    className="w-full mt-4 flex items-center justify-center gap-2"
                   >
-                    <LogOut className="h-4 w-4 mr-2" />
+                    <LogOut className="h-4 w-4" />
                     Sign Out From All Other Devices
                   </Button>
                 </CardContent>
@@ -742,7 +893,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Skills & Interests Tab */}
-            <TabsContent value="skills" className="space-y-6">
+            <TabsContent value="skills" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
@@ -760,7 +911,7 @@ const Settings = () => {
                       {userSkills.map((skill) => (
                         <div 
                           key={skill} 
-                          className="bg-mint/10 text-mint px-3 py-1 rounded-full text-sm flex items-center"
+                          className="bg-mint/10 text-mint px-3 py-1 rounded-full text-sm flex items-center transition-all duration-300 hover:bg-mint/20"
                         >
                           {skill}
                           <button 
@@ -780,14 +931,7 @@ const Settings = () => {
                         className="bg-forest-dark border-mint/10" 
                       />
                       <Button 
-                        onClick={() => {
-                          const input = document.getElementById('add-skill') as HTMLInputElement;
-                          if (input.value) {
-                            setUserSkills([...userSkills, input.value]);
-                            input.value = '';
-                            toast.success("Skill added!");
-                          }
-                        }}
+                        onClick={handleAddSkill}
                         className="bg-mint text-forest hover:bg-mint/90"
                       >
                         Add
@@ -807,7 +951,7 @@ const Settings = () => {
                       {userInterests.map((interest) => (
                         <div 
                           key={interest} 
-                          className="bg-white/10 text-white px-3 py-1 rounded-full text-sm flex items-center"
+                          className="bg-white/10 text-white px-3 py-1 rounded-full text-sm flex items-center transition-all duration-300 hover:bg-white/20"
                         >
                           {interest}
                           <button 
@@ -827,14 +971,7 @@ const Settings = () => {
                         className="bg-forest-dark border-mint/10" 
                       />
                       <Button 
-                        onClick={() => {
-                          const input = document.getElementById('add-interest') as HTMLInputElement;
-                          if (input.value) {
-                            setUserInterests([...userInterests, input.value]);
-                            input.value = '';
-                            toast.success("Interest added!");
-                          }
-                        }}
+                        onClick={handleAddInterest}
                         className="bg-mint text-forest hover:bg-mint/90"
                       >
                         Add
@@ -848,8 +985,9 @@ const Settings = () => {
                   
                   <Button 
                     onClick={() => toast.success("Skills and interests saved!")}
-                    className="bg-mint text-forest hover:bg-mint/90 mt-4"
+                    className="bg-mint text-forest hover:bg-mint/90 mt-4 flex items-center gap-2"
                   >
+                    <Save className="h-4 w-4" />
                     Save Skills & Interests
                   </Button>
                 </CardContent>
@@ -857,7 +995,7 @@ const Settings = () => {
             </TabsContent>
 
             {/* Data Management Tab */}
-            <TabsContent value="data" className="space-y-6">
+            <TabsContent value="data" className="space-y-6 transition-all duration-300">
               <Card className="bg-forest border-mint/10">
                 <CardHeader>
                   <CardTitle className="text-mint flex items-center">
