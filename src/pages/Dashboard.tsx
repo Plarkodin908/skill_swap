@@ -5,6 +5,8 @@ import { Calendar, MessageSquare, BookOpen, Users, Trophy, Award, Target, Zap } 
 import AchievementBadge from "@/components/gamification/AchievementBadge";
 import Leaderboard from "@/components/gamification/Leaderboard";
 import ProgressTracker from "@/components/gamification/ProgressTracker";
+import SocialLinks from "@/components/community/SocialLinks";
+import { useState } from "react";
 
 const Dashboard = () => {
   // Sample data for the leaderboard
@@ -23,6 +25,10 @@ const Dashboard = () => {
     { id: 3, label: "Skills Verified", currentValue: 5, targetValue: 10 },
     { id: 4, label: "Tutorials Completed", currentValue: 3, targetValue: 10 },
   ];
+
+  // User subscription state - in real app, this would come from a user auth context
+  const [userPlan, setUserPlan] = useState("Free"); // Could be "Free", "Pro Learner", or "Educator"
+  const isPremium = userPlan === "Pro Learner" || userPlan === "Educator";
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -39,7 +45,7 @@ const Dashboard = () => {
                 <h2 className="text-xl font-semibold text-white">Find Matches</h2>
               </div>
               <p className="text-white/70 mb-4">Connect with professionals that match your skills and interests</p>
-              <Button className="bg-mint hover:bg-mint/90 text-forest w-full">Explore Matches</Button>
+              <Button className="bg-mint hover:bg-mint/90 text-forest w-full" onClick={() => window.location.href = "/matches"}>Explore Matches</Button>
             </Card>
             
             <Card className="bg-forest-light border border-mint/10 p-6">
@@ -50,7 +56,7 @@ const Dashboard = () => {
                 <h2 className="text-xl font-semibold text-white">Messages</h2>
               </div>
               <p className="text-white/70 mb-4">View and respond to your conversations</p>
-              <Button className="bg-mint hover:bg-mint/90 text-forest w-full">Open Messages</Button>
+              <Button className="bg-mint hover:bg-mint/90 text-forest w-full" onClick={() => window.location.href = "/messages"}>Open Messages</Button>
             </Card>
             
             <Card className="bg-forest-light border border-mint/10 p-6">
@@ -61,7 +67,7 @@ const Dashboard = () => {
                 <h2 className="text-xl font-semibold text-white">Schedule</h2>
               </div>
               <p className="text-white/70 mb-4">Manage your appointments and sessions</p>
-              <Button className="bg-mint hover:bg-mint/90 text-forest w-full">View Calendar</Button>
+              <Button className="bg-mint hover:bg-mint/90 text-forest w-full" onClick={() => window.location.href = "/calendar"}>View Calendar</Button>
             </Card>
           </div>
           
@@ -70,8 +76,11 @@ const Dashboard = () => {
             <ProgressTracker items={progressItems} />
           </Card>
           
+          {/* Social Links */}
+          <SocialLinks isPremium={isPremium} maxLinks={isPremium ? 6 : 3} />
+          
           {/* Activity Feed - simplified for now */}
-          <Card className="bg-forest-light border border-mint/10 p-6">
+          <Card className="bg-forest-light border border-mint/10 p-6 mt-8">
             <h3 className="text-xl font-bold mb-4 text-white">Recent Activity</h3>
             <div className="space-y-4">
               <div className="border-l-2 border-mint pl-4 pb-4">
@@ -87,13 +96,38 @@ const Dashboard = () => {
                 <p className="text-white/60 text-sm">2 days ago</p>
               </div>
             </div>
-            <Button variant="outline" className="mt-4 border-mint/20 text-mint hover:bg-mint/10 w-full">
+            <Button variant="outline" className="mt-4 border-mint/20 text-mint hover:bg-mint/10 w-full" onClick={() => window.location.href = "/activity"}>
               View All Activity
             </Button>
           </Card>
         </div>
         
         <div className="space-y-8">
+          {/* User Plan Info Card */}
+          <Card className="bg-forest-light border border-mint/10 p-6">
+            <h3 className="text-xl font-bold mb-4 text-white">Current Plan: <span className="text-mint">{userPlan}</span></h3>
+            <div className="space-y-2 mb-4">
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${isPremium ? 'bg-mint' : 'bg-white/40'}`}></div>
+                <p className={`${isPremium ? 'text-white' : 'text-white/60 line-through'}`}>Unlimited course access</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${isPremium ? 'bg-mint' : 'bg-white/40'}`}></div>
+                <p className={`${isPremium ? 'text-white' : 'text-white/60 line-through'}`}>Priority messaging</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${isPremium ? 'bg-mint' : 'bg-white/40'}`}></div>
+                <p className={`${isPremium ? 'text-white' : 'text-white/60 line-through'}`}>Course certificates</p>
+              </div>
+            </div>
+            <Button 
+              className="w-full bg-mint hover:bg-mint/90 text-forest"
+              onClick={() => window.location.href = "/pricing"}
+            >
+              {isPremium ? "Manage Subscription" : "Upgrade Now"}
+            </Button>
+          </Card>
+
           {/* User Stats Card */}
           <Card className="bg-forest-light border border-mint/10 p-6">
             <h3 className="text-xl font-bold mb-4 text-white">Your Stats</h3>
@@ -121,7 +155,7 @@ const Dashboard = () => {
           <Card className="bg-forest-light border border-mint/10 p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-white">Achievements</h3>
-              <Button variant="ghost" className="text-mint hover:text-mint/80 hover:bg-mint/10 p-1 h-auto">
+              <Button variant="ghost" className="text-mint hover:text-mint/80 hover:bg-mint/10 p-1 h-auto" onClick={() => window.location.href = "/achievements"}>
                 View All
               </Button>
             </div>

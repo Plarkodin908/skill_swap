@@ -16,6 +16,9 @@ import Legal from "./pages/Legal";
 import Tutorials from "./pages/Tutorials";
 import Settings from "./pages/Settings";
 import Sidebar from "./components/Sidebar";
+import Activity from "./pages/Activity";
+import Achievements from "./pages/Achievements";
+import Matches from "./pages/Matches";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +51,9 @@ const AppLayout = () => {
           <Route path="/legal" element={<Legal />} />
           <Route path="/tutorials" element={<Tutorials />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/matches" element={<Matches />} />
         </Routes>
       </div>
     </div>
