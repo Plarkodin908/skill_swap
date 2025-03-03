@@ -19,6 +19,7 @@ import Sidebar from "./components/Sidebar";
 import Activity from "./pages/Activity";
 import Achievements from "./pages/Achievements";
 import Matches from "./pages/Matches";
+import Community from "./pages/Community";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,8 @@ const isHomePage = (pathname: string) => {
          pathname === "/features" || 
          pathname === "/pricing" || 
          pathname === "/company" || 
-         pathname === "/legal";
+         pathname === "/legal" ||
+         pathname === "/community";
 };
 
 // Create a layout component to use the React Router hooks
@@ -54,6 +56,7 @@ const AppLayout = () => {
           <Route path="/activity" element={<Activity />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/community" element={<Community />} />
         </Routes>
       </div>
     </div>
