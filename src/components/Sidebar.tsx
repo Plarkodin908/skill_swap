@@ -26,6 +26,13 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
   
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+  
   const menuItems = [
     { path: "/", label: "Home", icon: Home },
     { path: "/marketplace", label: "Course Marketplace", icon: ShoppingBag },
@@ -57,7 +64,7 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center justify-center mb-8">
-            <Link to="/" className="flex flex-col items-center hover:opacity-90 transition-opacity">
+            <Link to="/" className="flex flex-col items-center hover:opacity-90 transition-opacity" onClick={scrollToTop}>
               <img 
                 src="/lovable-uploads/971a0525-9509-4c96-9f90-66e481b188bc.png" 
                 alt="SKILL SWAP Logo" 
@@ -81,6 +88,7 @@ const Sidebar = () => {
                           ? 'bg-mint text-forest font-medium translate-x-1' 
                           : 'text-white/80 hover:bg-mint/10 hover:text-mint hover:translate-x-1'}
                       `}
+                      onClick={scrollToTop}
                     >
                       <item.icon className="h-5 w-5" />
                       <span>{item.label}</span>
@@ -96,6 +104,7 @@ const Sidebar = () => {
           <Link 
             to="/settings" 
             className="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:bg-mint/10 hover:text-mint hover:translate-x-1 transition-all duration-200"
+            onClick={scrollToTop}
           >
             <Settings className="h-5 w-5" />
             <span>Settings</span>

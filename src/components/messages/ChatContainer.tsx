@@ -4,6 +4,7 @@ import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import { Chat } from "./ChatList";
+import { MessageSquare } from "lucide-react";
 
 interface Message {
   id: number;
@@ -28,8 +29,12 @@ const ChatContainer = ({ selectedChat, messages, onSendMessage }: ChatContainerP
           <MessageInput onSendMessage={onSendMessage} />
         </>
       ) : (
-        <div className="flex-grow flex items-center justify-center">
-          <p className="text-white/60">Select a conversation to start messaging</p>
+        <div className="flex-grow flex flex-col items-center justify-center p-8">
+          <MessageSquare className="h-16 w-16 text-mint/40 mb-4" />
+          <p className="text-white/60 text-lg mb-2">No conversation selected</p>
+          <p className="text-white/40 text-center max-w-md">
+            Select a contact from the list or add a new contact to start messaging
+          </p>
         </div>
       )}
     </Card>
