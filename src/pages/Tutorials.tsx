@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlusCircle, BookText, FileText, Video, Bookmark, Plus } from "lucide-react";
+import { PlusCircle, BookText, FileText, Video, Bookmark, Plus, Upload, FileVideo } from "lucide-react";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,16 +13,45 @@ import { Label } from "@/components/ui/label";
 const Tutorials = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeDialog, setActiveDialog] = useState<string | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
   
   const handleAddResource = (type: string) => {
     setActiveDialog(type);
+    setVideoFile(null); // Reset video file when opening a new dialog
   };
   
   const handleSubmitResource = (type: string) => {
+    if ((type === "Tutorial" || type === "videos") && !videoFile && document.getElementById('video-upload')) {
+      toast.error(`Please upload a video file for your ${type.toLowerCase()}.`);
+      return;
+    }
+    
     toast.success(`New ${type} added!`, {
       description: `Your ${type.toLowerCase()} has been created successfully.`,
     });
     setActiveDialog(null);
+    setVideoFile(null);
+  };
+
+  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      
+      // Check if file is a video
+      if (!file.type.startsWith('video/')) {
+        toast.error('Please upload a video file');
+        return;
+      }
+      
+      // Check file size (limit to 100MB for example)
+      if (file.size > 100 * 1024 * 1024) {
+        toast.error('Video file is too large. Maximum size is 100MB.');
+        return;
+      }
+      
+      setVideoFile(file);
+      toast.info('Video selected successfully!');
+    }
   };
   
   // Empty states for different resource types
@@ -78,6 +107,36 @@ const Tutorials = () => {
                 <div className="space-y-2">
                   <Label htmlFor="description">Description</Label>
                   <Textarea id="description" placeholder="Provide a brief description..." className="bg-forest border-mint/20 text-white min-h-[120px]" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="video-upload">Tutorial Video</Label>
+                  <div className="flex items-center gap-2">
+                    <Input 
+                      type="file" 
+                      id="video-upload" 
+                      className="bg-forest border-mint/20 text-white hidden" 
+                      accept="video/*"
+                      onChange={handleVideoUpload}
+                    />
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      className="w-full border-mint/20 text-mint hover:bg-mint/10 flex items-center justify-center gap-2"
+                      onClick={() => document.getElementById('video-upload')?.click()}
+                    >
+                      <Upload className="h-4 w-4" />
+                      {videoFile ? 'Change Video' : 'Upload Video'}
+                    </Button>
+                  </div>
+                  {videoFile && (
+                    <div className="flex items-center gap-2 mt-2 p-2 bg-mint/10 rounded-md">
+                      <FileVideo className="h-4 w-4 text-mint" />
+                      <span className="text-sm text-white/80 truncate">{videoFile.name}</span>
+                      <span className="text-xs text-white/60 ml-auto">
+                        {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
               <DialogFooter>
@@ -191,6 +250,38 @@ const Tutorials = () => {
                           <Label htmlFor={`${tab}-title`}>Title</Label>
                           <Input id={`${tab}-title`} placeholder="Enter a title..." className="bg-forest border-mint/20 text-white" />
                         </div>
+                        {tab === 'videos' && (
+                          <div className="space-y-2">
+                            <Label htmlFor={`${tab}-upload`}>Video File</Label>
+                            <div className="flex items-center gap-2">
+                              <Input 
+                                type="file" 
+                                id={`${tab}-upload`} 
+                                className="bg-forest border-mint/20 text-white hidden" 
+                                accept="video/*"
+                                onChange={handleVideoUpload}
+                              />
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                className="w-full border-mint/20 text-mint hover:bg-mint/10 flex items-center justify-center gap-2"
+                                onClick={() => document.getElementById(`${tab}-upload`)?.click()}
+                              >
+                                <Upload className="h-4 w-4" />
+                                {videoFile ? 'Change Video' : 'Upload Video'}
+                              </Button>
+                            </div>
+                            {videoFile && (
+                              <div className="flex items-center gap-2 mt-2 p-2 bg-mint/10 rounded-md">
+                                <FileVideo className="h-4 w-4 text-mint" />
+                                <span className="text-sm text-white/80 truncate">{videoFile.name}</span>
+                                <span className="text-xs text-white/60 ml-auto">
+                                  {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        )}
                         <div className="space-y-2">
                           <Label htmlFor={`${tab}-content`}>Content</Label>
                           <Textarea id={`${tab}-content`} placeholder="Write your content..." className="bg-forest border-mint/20 text-white min-h-[150px]" />
