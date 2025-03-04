@@ -22,6 +22,7 @@ import Matches from "./pages/Matches";
 import Community from "./pages/Community";
 import AddCourse from "./pages/AddCourse";
 import ImportContent from "./pages/ImportContent";
+import PaymentPage from "./pages/PaymentPage";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,8 @@ const isHomePage = (pathname: string) => {
          pathname === "/pricing" || 
          pathname === "/company" || 
          pathname === "/legal" ||
-         pathname === "/community";
+         pathname === "/community" ||
+         pathname === "/payment";
 };
 
 // Create a layout component to use the React Router hooks
@@ -61,6 +63,7 @@ const AppLayout = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/import-content" element={<ImportContent />} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </div>
     </div>

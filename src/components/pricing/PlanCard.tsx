@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check, X } from "lucide-react";
 import { PlanFeature } from "./types";
+import { useNavigate } from "react-router-dom";
 
 type PlanCardProps = {
   name: string;
@@ -35,6 +36,28 @@ const PlanCard = ({
   onSubscribe,
   currentPlan
 }: PlanCardProps) => {
+  const navigate = useNavigate();
+
+  const handleSubscribeClick = () => {
+    if (name === currentPlan) {
+      return; // Already subscribed
+    }
+    
+    // For free plan, just use the onSubscribe function
+    if (name === "Free") {
+      onSubscribe(name);
+      return;
+    }
+    
+    // For paid plans, navigate to payment page
+    const params = new URLSearchParams();
+    params.append("plan", name);
+    params.append("price", price);
+    params.append("period", period);
+    
+    navigate(`/payment?${params.toString()}`);
+  };
+
   return (
     <Card 
       className={`
@@ -110,7 +133,7 @@ const PlanCard = ({
                 ? 'bg-mint hover:bg-mint/90 text-forest' 
                 : 'bg-forest border border-mint/20 text-mint hover:bg-forest/80'
           }`}
-          onClick={() => onSubscribe(name)}
+          onClick={handleSubscribeClick}
           disabled={disabled}
         >
           {cta}
