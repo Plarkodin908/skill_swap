@@ -128,8 +128,16 @@
   100% { transform: scale(1); }
 }
 
+@keyframes backpack-bounce {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-4px) scale(1.2); }
+  60% { transform: translateY(2px) scale(1.1); }
+  80% { transform: translateY(-1px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
 .bookmark-animate {
-  animation: bookmark-pulse 0.3s ease-in-out;
+  animation: backpack-bounce 0.4s ease-in-out;
 }
 
 /* Add fade-in animation for learning facts section */

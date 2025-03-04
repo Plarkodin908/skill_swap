@@ -1,9 +1,9 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookText, Bookmark, FileText, Video, BookmarkPlus } from "lucide-react";
-import { useState } from "react";
+import { BookText, FileText, Video } from "lucide-react";
+import { useState, useRef } from "react";
 import EmptyState from "./EmptyState";
 import { toast } from "sonner";
+import BackpackIcon from "../icons/BackpackIcon";
 
 interface TabsSectionProps {
   onResourceAdd: (type: string) => void;
@@ -21,6 +21,7 @@ interface Resource {
 const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
   const [resources, setResources] = useState<Resource[]>([]);
   const [bookmarkedResources, setBookmarkedResources] = useState<Resource[]>([]);
+  const bookmarkRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   // Toggle bookmark status for a resource
   const toggleBookmark = (id: string, type: string) => {
@@ -37,14 +38,23 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
     const resource = resources.find(r => r.id === id);
     
     if (resource) {
+      // Add animation to the button when clicked
+      const buttonRef = bookmarkRefs.current[id];
+      if (buttonRef) {
+        buttonRef.classList.add("bookmark-animate");
+        setTimeout(() => {
+          buttonRef.classList.remove("bookmark-animate");
+        }, 300);
+      }
+
       if (!resource.bookmarked) {
         // If it wasn't bookmarked before, add to bookmarks
         setBookmarkedResources(prev => [...prev, { ...resource, bookmarked: true }]);
-        toast.success(`Added to bookmarks!`);
+        toast.success(`Added to backpack!`);
       } else {
         // If it was already bookmarked, remove from bookmarks
         setBookmarkedResources(prev => prev.filter(r => r.id !== id));
-        toast.info(`Removed from bookmarks`);
+        toast.info(`Removed from backpack`);
       }
     }
   };
@@ -67,9 +77,9 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
       description: "Create engaging video content to help others learn more effectively."
     },
     bookmarks: {
-      icon: <Bookmark className="h-16 w-16 text-mint mx-auto mb-4 opacity-80" />,
-      title: "No Bookmarks Yet", 
-      description: "Save tutorials, articles, and videos for quick access later."
+      icon: <BackpackIcon className="h-16 w-16 text-mint mx-auto mb-4 opacity-80" />,
+      title: "Your Backpack is Empty",
+      description: "Save tutorials, articles, and videos here for quick access later."
     }
   };
 
@@ -89,7 +99,7 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
           Video Tutorials
         </TabsTrigger>
         <TabsTrigger value="bookmarks" className="data-[state=active]:bg-mint data-[state=active]:text-forest">
-          Bookmarked
+          Backpack
         </TabsTrigger>
       </TabsList>
       
@@ -102,14 +112,14 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-white">{resource.title}</h3>
                     <button 
+                      ref={el => bookmarkRefs.current[resource.id] = el}
                       onClick={() => toggleBookmark(resource.id, tab)}
-                      className="text-mint hover:text-mint/80 transition-colors"
+                      className="text-mint hover:text-mint/80 transition-colors p-1 rounded-full hover:bg-mint/10"
                     >
-                      {resource.bookmarked ? (
-                        <Bookmark className="h-5 w-5 fill-mint" />
-                      ) : (
-                        <BookmarkPlus className="h-5 w-5" />
-                      )}
+                      <BackpackIcon 
+                        className="h-5 w-5 transition-transform" 
+                        fill={resource.bookmarked}
+                      />
                     </button>
                   </div>
                   <p className="text-white/70 text-sm mb-3">{resource.description}</p>
@@ -137,10 +147,14 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-medium text-white">{resource.title}</h3>
                   <button 
+                    ref={el => bookmarkRefs.current[resource.id] = el}
                     onClick={() => toggleBookmark(resource.id, resource.type)}
-                    className="text-mint hover:text-mint/80 transition-colors"
+                    className="text-mint hover:text-mint/80 transition-colors p-1 rounded-full hover:bg-mint/10"
                   >
-                    <Bookmark className="h-5 w-5 fill-mint" />
+                    <BackpackIcon 
+                      className="h-5 w-5 transition-transform" 
+                      fill={true}
+                    />
                   </button>
                 </div>
                 <p className="text-white/70 text-sm mb-3">{resource.description}</p>
@@ -156,8 +170,8 @@ const TabsSection = ({ onResourceAdd }: TabsSectionProps) => {
         ) : (
           <EmptyState
             icon={emptyStates.bookmarks.icon}
-            title={emptyStates.bookmarks.title}
-            description={emptyStates.bookmarks.description}
+            title="Your Backpack is Empty"
+            description="Save tutorials, articles, and videos here for quick access later."
             actionLabel="Browse Content"
             onAction={() => {}} // No specific action for now
           />
