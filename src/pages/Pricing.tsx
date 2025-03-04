@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -33,7 +32,7 @@ const Pricing = () => {
     { name: "Promotional tools", free: false, pro: false, educator: true, description: "Tools to promote your courses" },
     { name: "Revenue sharing", free: false, pro: false, educator: true, description: "Earn from your courses" },
     { name: "Custom branding", free: false, pro: false, educator: true, description: "Add your own branding to your content" },
-    { name: "Premium support", false: false, pro: false, educator: true, description: "Get dedicated support for your educator needs" },
+    { name: "Premium support", free: false, pro: false, educator: true, description: "Get dedicated support for your educator needs" },
     { name: "Social channels", free: true, pro: true, educator: true, description: "Limited to 3 for Free plan, unlimited for paid plans" },
   ];
 

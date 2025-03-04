@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -33,7 +32,7 @@ const Community = () => {
                 <CardDescription className="text-white/70">Link your social media accounts for others to find you</CardDescription>
               </CardHeader>
               <CardContent>
-                <SocialLinks showAddButton={true} isPremium={true} />
+                <SocialLinks showAddButton={true} isPremium={true} maxLinks={10} />
                 <p className="text-white/60 text-sm mt-4">
                   Free users can add up to 3 social channels. Pro and Educator users get unlimited social links.
                 </p>
