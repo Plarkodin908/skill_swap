@@ -20,6 +20,8 @@ import Activity from "./pages/Activity";
 import Achievements from "./pages/Achievements";
 import Matches from "./pages/Matches";
 import Community from "./pages/Community";
+import AddCourse from "./pages/AddCourse";
+import ImportContent from "./pages/ImportContent";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +59,8 @@ const AppLayout = () => {
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/add-course" element={<AddCourse />} />
+          <Route path="/import-content" element={<ImportContent />} />
         </Routes>
       </div>
     </div>

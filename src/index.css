@@ -39,6 +39,19 @@
   ::selection {
     @apply bg-mint text-forest;
   }
+
+  /* Fix for mobile responsiveness */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Make text content wrap properly on small screens */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 
 .glass-nav {
@@ -59,4 +72,38 @@
   .card-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:shadow-mint/10 hover:-translate-y-1;
   }
+
+  /* Responsive adjustments */
+  .container {
+    @apply max-w-full px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Responsive tabs */
+  .tabs-responsive {
+    @apply overflow-x-auto pb-2;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .tabs-list-responsive {
+    display: flex;
+    width: max-content;
+  }
+}
+
+/* Animate bookmark */
+@keyframes bookmark-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.bookmark-animate {
+  animation: bookmark-pulse 0.3s ease-in-out;
 }
