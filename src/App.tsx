@@ -11,6 +11,7 @@ import Messages from "./pages/Messages";
 import CalendarPage from "./pages/CalendarPage";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
+import PlanDetails from "./pages/PlanDetails";
 import Company from "./pages/Company";
 import Legal from "./pages/Legal";
 import Tutorials from "./pages/Tutorials";
@@ -35,7 +36,8 @@ const isHomePage = (pathname: string) => {
          pathname === "/company" || 
          pathname === "/legal" ||
          pathname === "/community" ||
-         pathname === "/payment";
+         pathname === "/payment" ||
+         pathname.startsWith("/plan/");
 };
 
 // Create a layout component to use the React Router hooks
@@ -49,6 +51,8 @@ const AppLayout = () => {
     if (currentPath === "/company") return "organization";
     if (currentPath.includes("/marketplace")) return "course";
     if (currentPath.includes("/tutorials")) return "article";
+    if (currentPath.includes("/pricing") || currentPath.includes("/plan/")) return "product";
+    if (currentPath.includes("/community")) return "socialMedia";
     return "website";
   };
   
@@ -67,6 +71,7 @@ const AppLayout = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/features" element={<Features />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/plan/:planId" element={<PlanDetails />} />
           <Route path="/company" element={<Company />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/tutorials" element={<Tutorials />} />

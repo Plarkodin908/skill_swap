@@ -1,203 +1,128 @@
-@import url('https://rsms.me/inter/inter.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 152 55% 12%;
-    --primary-foreground: 152 55% 98%;
-    --secondary: 152 75% 52%;
-    --secondary-foreground: 152 75% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 152 75% 52%;
-    --accent-foreground: 152 75% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 152 75% 52%;
-    --radius: 0.5rem;
-  }
-
-  body {
-    @apply bg-black text-white antialiased;
-    background-image: radial-gradient(circle at 50% 0%, rgba(100, 255, 218, 0.05), transparent 70%);
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  ::selection {
-    @apply bg-mint text-forest;
-  }
-
-  /* Fix for mobile responsiveness */
-  img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  /* Make text content wrap properly on small screens */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-  }
+:root {
+  --forest: #052e16;
+  --forest-light: #0f3d24;
+  --mint: #22c55e;
 }
 
-.glass-nav {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+@layer base {
+  body {
+    @apply bg-forest text-white;
+  }
 }
 
 @layer components {
-  .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
-  }
-  
-  .story-link {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-mint after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
-  }
-  
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-mint/10 hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-mint/5 hover:border-mint/30;
   }
 
-  /* Responsive adjustments */
-  .container {
-    @apply max-w-full px-4 sm:px-6 lg:px-8;
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
   }
 
-  /* Responsive tabs */
-  .tabs-responsive {
-    @apply overflow-x-auto pb-2;
-  }
-}
-
-/* Mobile adjustments */
-@media (max-width: 640px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .tabs-list-responsive {
-    display: flex;
-    width: max-content;
+  .badge-beginner {
+    @apply bg-blue-500/20 text-blue-500;
   }
   
-  /* Image responsiveness fixes */
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* Tablet adjustments */
-@media (max-width: 1024px) {
-  .order-swap {
-    display: flex;
-    flex-direction: column;
+  .badge-intermediate {
+    @apply bg-green-500/20 text-green-500;
   }
   
-  .order-swap > div:first-child {
-    order: 2;
+  .badge-advanced {
+    @apply bg-yellow-500/20 text-yellow-500;
   }
   
-  .order-swap > div:last-child {
-    order: 1;
-    margin-bottom: 2rem;
-  }
-}
-
-/* Improved mobile responsiveness */
-@media (max-width: 768px) {
-  p, h1, h2, h3, h4, h5, h6 {
-    max-width: 100%;
-    font-size: 95%;
-  }
-
-  h1 {
-    font-size: 2rem;
+  .badge-expert {
+    @apply bg-purple-500/20 text-purple-500;
   }
   
-  h2 {
-    font-size: 1.75rem;
+  .badge-master {
+    @apply bg-orange-500/20 text-orange-500;
   }
   
-  img {
-    max-width: 95%;
-    height: auto;
+  .badge-legend {
+    @apply bg-mint/20 text-mint;
   }
-  
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-  
-  /* Make sure table content is visible on mobile */
-  .overflow-x-auto {
-    padding-bottom: 1rem;
-  }
-  
-  /* Ensure content within cards doesn't overflow */
-  .card {
-    padding: 1rem;
-    word-break: break-word;
-  }
-}
 
-/* For very small devices */
-@media (max-width: 375px) {
-  h1 {
-    font-size: 1.75rem;
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
   }
-  
-  p, li {
-    font-size: 90%;
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
   }
-  
-  .card, .container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+
+  .animate-slide-right {
+    animation: slideRight 0.5s ease-out forwards;
   }
-}
 
-/* Animate bookmark */
-@keyframes bookmark-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
+  .animate-bounce-once {
+    animation: bounceOnce 0.6s ease-out forwards;
+  }
 
-@keyframes backpack-bounce {
-  0% { transform: translateY(0) scale(1); }
-  40% { transform: translateY(-4px) scale(1.2); }
-  60% { transform: translateY(2px) scale(1.1); }
-  80% { transform: translateY(-1px) scale(1.05); }
-  100% { transform: translateY(0) scale(1); }
-}
+  @keyframes bounceOnce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
 
-.bookmark-animate {
-  animation: backpack-bounce 0.4s ease-in-out;
-}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-/* Add fade-in animation for learning facts section */
-@keyframes fade-in {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out forwards;
+  @keyframes slideRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Mobile responsiveness enhancements */
+  @media (max-width: 640px) {
+    h1 {
+      @apply text-3xl;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+    h3 {
+      @apply text-xl;
+    }
+    p {
+      @apply text-sm;
+    }
+    .container {
+      @apply px-4;
+    }
+  }
 }
