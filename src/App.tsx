@@ -23,6 +23,7 @@ import Community from "./pages/Community";
 import AddCourse from "./pages/AddCourse";
 import ImportContent from "./pages/ImportContent";
 import PaymentPage from "./pages/PaymentPage";
+import SchemaMarkup from "./components/SEO/SchemaMarkup";
 
 const queryClient = new QueryClient();
 
@@ -40,10 +41,23 @@ const isHomePage = (pathname: string) => {
 // Create a layout component to use the React Router hooks
 const AppLayout = () => {
   const location = useLocation();
+  const currentPath = location.pathname;
+
+  // Determine which schema to use based on current path
+  const getSchemaType = () => {
+    if (currentPath === "/") return "website";
+    if (currentPath === "/company") return "organization";
+    if (currentPath.includes("/marketplace")) return "course";
+    if (currentPath.includes("/tutorials")) return "article";
+    return "website";
+  };
   
   return (
     <div className="flex min-h-screen">
-      {!isHomePage(location.pathname) && <Sidebar />}
+      {/* Add Schema Markup for SEO */}
+      <SchemaMarkup type={getSchemaType()} />
+      
+      {!isHomePage(currentPath) && <Sidebar />}
       <div className="flex-grow overflow-y-auto">
         <Routes>
           <Route path="/" element={<Index />} />

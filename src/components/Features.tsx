@@ -1,40 +1,41 @@
+
 import React from "react";
 import { Star, Award, ShieldCheck } from "lucide-react";
 
 const Features = () => {
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4" id="features">
       <div className="container mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">
-            How it works?
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            How SkillSwap Works
           </h2>
-          <p className="text-white/80">Our AI-powered platform simplifies tech recruitment</p>
+          <p className="text-white/80">Our AI-powered platform simplifies tech learning and knowledge sharing</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
             {
               icon: Star,
-              title: "Post Your Requirements",
-              description: "Specify your needs and let our AI match you with the perfect candidates",
+              title: "Discover Expert Content",
+              description: "Explore high-quality courses and resources created by industry professionals and passionate educators.",
             },
             {
               icon: Award,
-              title: "Review Matches",
-              description: "Get a curated list of pre-screened candidates that match your criteria",
+              title: "Learn At Your Own Pace",
+              description: "Access structured learning paths and bite-sized lessons that fit into your busy schedule.",
             },
             {
               icon: ShieldCheck,
-              title: "Hire the Best",
-              description: "Interview and hire top tech talent efficiently",
+              title: "Share Your Knowledge",
+              description: "Create your own courses and tutorials to help others while establishing yourself as an expert.",
             },
           ].map((feature, index) => (
             <div 
               key={index} 
-              className="bg-forest-light p-8 rounded-xl border border-mint/10"
+              className="bg-forest-light p-6 md:p-8 rounded-xl border border-mint/10"
             >
               <div className="w-12 h-12 bg-mint rounded-full flex items-center justify-center mb-6">
-                {React.createElement(feature.icon, { className: "w-6 h-6 text-forest" })}
+                {React.createElement(feature.icon, { className: "w-6 h-6 text-forest", "aria-hidden": "true" })}
               </div>
               <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
               <p className="text-white/80">{feature.description}</p>
