@@ -1,143 +1,187 @@
 
-import { Calendar, MessageSquare, Users } from "lucide-react";
 import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { BookOpen, Users, Award, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
-// Dashboard components
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import StatCard from "@/components/dashboard/StatCard";
-import ActivityFeed from "@/components/dashboard/ActivityFeed";
-import UserPlanCard from "@/components/dashboard/UserPlanCard";
+// Import components
 import UserStatsCard from "@/components/dashboard/UserStatsCard";
 import AchievementsCard from "@/components/dashboard/AchievementsCard";
-
-// Shared components
-import { Card } from "@/components/ui/card";
-import Leaderboard from "@/components/gamification/Leaderboard";
-import ProgressTracker from "@/components/gamification/ProgressTracker";
-import SocialLinks from "@/components/community/SocialLinks";
+import ActivityFeed from "@/components/dashboard/ActivityFeed";
+import UserPlanCard from "@/components/dashboard/UserPlanCard";
+import StatCard from "@/components/dashboard/StatCard";
+import DashboardLayout from "@/components/dashboard/DashboardLayout";
 
 const Dashboard = () => {
-  // Sample data for the leaderboard
-  const leaderboardUsers = [
-    { id: 1, name: "Emma Watson", avatar: "https://i.pravatar.cc/150?img=1", points: 1250, rank: 1 },
-    { id: 2, name: "James Smith", avatar: "https://i.pravatar.cc/150?img=2", points: 980, rank: 2 },
-    { id: 3, name: "John Doe", avatar: "https://i.pravatar.cc/150?img=3", points: 820, rank: 3 },
-    { id: 4, name: "Sarah Connor", avatar: "https://i.pravatar.cc/150?img=4", points: 720, rank: 4 },
-    { id: 5, name: "Michael Johnson", avatar: "https://i.pravatar.cc/150?img=5", points: 650, rank: 5 },
-  ];
-  
-  // Sample data for progress tracker
-  const progressItems = [
-    { id: 1, label: "Complete Profile", currentValue: 80, targetValue: 100 },
-    { id: 2, label: "Messages Sent", currentValue: 12, targetValue: 20 },
-    { id: 3, label: "Skills Verified", currentValue: 5, targetValue: 10 },
-    { id: 4, label: "Tutorials Completed", currentValue: 3, targetValue: 10 },
+  const [activeTab, setActiveTab] = useState("overview");
+
+  // Sample user stats data
+  const stats = [
+    { value: 18, label: "Courses" },
+    { value: "25h", label: "Learning" },
+    { value: 12, label: "Connections" },
+    { value: 4, label: "Completed" }
   ];
 
-  // User stats data
-  const userStats = [
-    { value: 42, label: "Connections" },
-    { value: 12, label: "Sessions" },
-    { value: 820, label: "Points" },
-    { value: 8, label: "Badges" },
-  ];
-
-  // User achievements data
-  const achievements = [
-    { type: "beginner", title: "First Login", description: "Logged in for the first time", earned: true },
-    { type: "intermediate", title: "Profile Pro", description: "Completed your profile 100%", earned: true },
-    { type: "expert", title: "Connector", description: "Made 10+ connections", earned: true },
-    { type: "master", title: "Skill Master", description: "Verified 5+ skills", earned: false },
-    { type: "legend", title: "Top Mentor", description: "Helped 25+ users", earned: false },
-    { type: "beginner", title: "Learner", description: "Completed 5 tutorials", earned: false },
-  ];
-
-  // Activity feed data
-  const activityItems = [
-    { text: "You completed the \"React Basics\" tutorial", timestamp: "2 hours ago" },
-    { text: "Skill \"JavaScript\" verified", timestamp: "Yesterday" },
-    { text: "You received a new message from Emma", timestamp: "2 days ago" },
-  ];
-
-  // User subscription state - in real app, this would come from a user auth context
-  const [userPlan, setUserPlan] = useState("Free"); // Could be "Free", "Pro Learner", or "Educator"
-  const isPremium = userPlan === "Pro Learner" || userPlan === "Educator";
-  
-  const statCards = [
+  // Sample activity data
+  const activities = [
     {
-      icon: Users,
-      title: "Find Matches",
-      description: "Connect with professionals that match your skills and interests",
-      buttonText: "Explore Matches",
-      href: "/matches"
+      id: 1,
+      type: "course",
+      title: "Completed JavaScript Fundamentals",
+      time: "2 hours ago"
     },
     {
-      icon: MessageSquare,
-      title: "Messages",
-      description: "View and respond to your conversations",
-      buttonText: "Open Messages",
-      href: "/messages"
+      id: 2,
+      type: "connection",
+      title: "Connected with Sarah Johnson",
+      time: "Yesterday"
     },
     {
-      icon: Calendar,
-      title: "Schedule",
-      description: "Manage your appointments and sessions",
-      buttonText: "View Calendar",
-      href: "/calendar"
+      id: 3,
+      type: "achievement",
+      title: "Earned 'Coding Streak' badge",
+      time: "3 days ago"
+    },
+    {
+      id: 4,
+      type: "course",
+      title: "Started React for Beginners",
+      time: "1 week ago"
     }
   ];
 
-  // Main content for the dashboard
-  const mainContent = (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {statCards.map((card, index) => (
-          <StatCard
-            key={index}
-            icon={card.icon}
-            title={card.title}
-            description={card.description}
-            buttonText={card.buttonText}
-            href={card.href}
-          />
-        ))}
-      </div>
-      
-      {/* Progress Tracker */}
-      <Card className="bg-forest-light border border-mint/10 p-6 mb-8">
-        <ProgressTracker items={progressItems} />
-      </Card>
-      
-      {/* Social Links */}
-      <SocialLinks isPremium={isPremium} maxLinks={isPremium ? 6 : 3} />
-      
-      {/* Activity Feed */}
-      <ActivityFeed items={activityItems} />
-    </>
-  );
+  // Sample achievements data with correct type values
+  const achievements = [
+    {
+      type: "beginner", 
+      title: "First Steps",
+      description: "Complete your first course",
+      earned: true
+    },
+    {
+      type: "intermediate", 
+      title: "Knowledge Seeker",
+      description: "Complete 5 different courses",
+      earned: true
+    },
+    {
+      type: "advanced", 
+      title: "Skill Master",
+      description: "Reach proficiency in any skill",
+      earned: false
+    },
+    {
+      type: "expert", 
+      title: "Dedicated Learner",
+      description: "Spend 50+ hours learning",
+      earned: false
+    }
+  ];
 
-  // Sidebar content for the dashboard
-  const sidebarContent = (
-    <>
-      {/* User Plan Info Card */}
-      <UserPlanCard plan={userPlan} isPremium={isPremium} />
-      
-      {/* User Stats Card */}
-      <UserStatsCard stats={userStats} />
-      
-      {/* Achievements Card */}
-      <AchievementsCard achievements={achievements} />
-      
-      {/* Leaderboard Card */}
-      <Card className="bg-forest-light border border-mint/10 p-6">
-        <Leaderboard users={leaderboardUsers} />
-      </Card>
-    </>
-  );
-  
+  // Sample user plan data
+  const userPlan = {
+    name: "Pro Plan",
+    expires: "October 15, 2023",
+    features: [
+      "Unlimited course access",
+      "Priority matching",
+      "Advanced analytics",
+      "Community events"
+    ]
+  };
+
+  const handleShareProgress = () => {
+    toast.success("Progress shared to your network!");
+  };
+
   return (
-    <DashboardLayout sidebar={sidebarContent}>
-      {mainContent}
+    <DashboardLayout
+      sidebar={
+        <>
+          <UserStatsCard stats={stats} />
+          <UserPlanCard plan={userPlan} />
+          <AchievementsCard achievements={achievements} />
+        </>
+      }
+    >
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <StatCard
+            icon={BookOpen}
+            title="Learning Path"
+            description="Continue your personalized learning journey."
+            buttonText="Resume Learning"
+            href="/tutorials"
+          />
+          <StatCard
+            icon={Users}
+            title="Skill Exchange"
+            description="Connect with others to share your knowledge."
+            buttonText="Find Matches"
+            href="/matches"
+          />
+        </div>
+
+        <Card className="border border-mint/10 bg-forest-light">
+          <CardHeader>
+            <CardTitle className="text-xl text-white">Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ActivityFeed activities={activities} />
+            <div className="mt-4 flex justify-end">
+              <Button
+                variant="outline"
+                className="text-mint border-mint/20 hover:bg-mint/10"
+                onClick={handleShareProgress}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Share Progress
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white">Achievements</h2>
+          <Link to="/achievements">
+            <Button
+              variant="outline"
+              className="text-mint border-mint/20 hover:bg-mint/10"
+            >
+              <Award className="w-4 h-4 mr-2" />
+              View All
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {achievements.map((achievement, index) => (
+            <Card
+              key={index}
+              className={`border border-mint/10 bg-forest-light p-4 text-center ${
+                achievement.earned ? "border-mint/30" : "opacity-60"
+              }`}
+            >
+              <div
+                className={`w-12 h-12 rounded-full mx-auto mb-2 flex items-center justify-center badge-${achievement.type}`}
+              >
+                <Award className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-white">{achievement.title}</h3>
+              <p className="text-sm text-white/60">{achievement.description}</p>
+              {achievement.earned && (
+                <span className="inline-block mt-2 px-2 py-1 bg-mint/10 text-mint text-xs rounded-full">
+                  Earned
+                </span>
+              )}
+            </Card>
+          ))}
+        </div>
+      </div>
     </DashboardLayout>
   );
 };
