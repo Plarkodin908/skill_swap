@@ -1,114 +1,104 @@
 
-import React from 'react';
+import { Helmet } from "react-helmet";
+
+type SchemaType = "website" | "organization" | "course" | "article" | "product" | "socialMedia";
 
 interface SchemaMarkupProps {
-  type: 'website' | 'organization' | 'course' | 'article';
-  title?: string;
-  description?: string;
-  url?: string;
-  imageUrl?: string;
-  datePublished?: string;
-  dateModified?: string;
-  authorName?: string;
+  type: SchemaType;
+  data?: Record<string, any>;
 }
 
-const SchemaMarkup: React.FC<SchemaMarkupProps> = ({
-  type,
-  title = "SkillSwap - Community-Driven Learning Platform",
-  description = "Share knowledge, build skills, and grow together on our community-driven learning platform.",
-  url = "https://skillswap.example.com",
-  imageUrl = "/og-image.svg",
-  datePublished,
-  dateModified,
-  authorName,
-}) => {
-  let schema;
+const SchemaMarkup = ({ type, data = {} }: SchemaMarkupProps) => {
+  // Default schema data
+  const defaultData = {
+    website: {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "SkillSwap - Connect, Learn, Grow",
+      "url": "https://skillswap.example.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://skillswap.example.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    organization: {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "SkillSwap",
+      "url": "https://skillswap.example.com/",
+      "logo": "https://skillswap.example.com/logo.png",
+      "sameAs": [
+        "https://twitter.com/skillswap",
+        "https://www.linkedin.com/company/skillswap"
+      ]
+    },
+    course: {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Web Development Mastery",
+      "description": "Learn web development from basics to advanced concepts",
+      "provider": {
+        "@type": "Organization",
+        "name": "SkillSwap",
+        "sameAs": "https://skillswap.example.com/"
+      }
+    },
+    article: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Master Programming Skills",
+      "author": {
+        "@type": "Person",
+        "name": "John Smith"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "SkillSwap",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://skillswap.example.com/logo.png"
+        }
+      },
+      "datePublished": "2023-06-12",
+      "dateModified": "2023-06-15"
+    },
+    product: {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Pro Learning Subscription",
+      "description": "Advanced learning tools and features for serious learners",
+      "offers": {
+        "@type": "Offer",
+        "price": "19.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    socialMedia: {
+      "@context": "https://schema.org",
+      "@type": "SocialMediaPosting",
+      "headline": "Join our community of learners!",
+      "datePublished": "2023-07-20",
+      "author": {
+        "@type": "Person",
+        "name": "SkillSwap Team"
+      }
+    }
+  };
 
-  switch (type) {
-    case 'website':
-      schema = {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: title,
-        description,
-        url,
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: `${url}/search?q={search_term_string}`,
-          'query-input': 'required name=search_term_string'
-        }
-      };
-      break;
-    
-    case 'organization':
-      schema = {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: 'SkillSwap',
-        url,
-        logo: `${url}/favicon.ico`,
-        sameAs: [
-          'https://twitter.com/skillswap',
-          'https://facebook.com/skillswap',
-          'https://linkedin.com/company/skillswap'
-        ],
-        contactPoint: {
-          '@type': 'ContactPoint',
-          telephone: '+1-000-000-0000',
-          contactType: 'customer service',
-          email: 'support@skillswap.example.com'
-        }
-      };
-      break;
-    
-    case 'course':
-      schema = {
-        '@context': 'https://schema.org',
-        '@type': 'Course',
-        name: title,
-        description,
-        provider: {
-          '@type': 'Organization',
-          name: 'SkillSwap',
-          sameAs: url
-        }
-      };
-      break;
-    
-    case 'article':
-      schema = {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: title,
-        description,
-        image: imageUrl,
-        datePublished,
-        dateModified: dateModified || datePublished,
-        author: {
-          '@type': 'Person',
-          name: authorName || 'SkillSwap Team'
-        },
-        publisher: {
-          '@type': 'Organization',
-          name: 'SkillSwap',
-          logo: {
-            '@type': 'ImageObject',
-            url: `${url}/favicon.ico`
-          }
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': url
-        }
-      };
-      break;
-  }
+  // Get the schema data for the specified type, or fall back to website schema
+  const schemaData = defaultData[type] || defaultData.website;
+  
+  // Merge default schema with any additional data provided
+  const finalSchema = { ...schemaData, ...data };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(finalSchema)}
+      </script>
+    </Helmet>
   );
 };
 
