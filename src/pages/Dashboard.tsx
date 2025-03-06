@@ -1,7 +1,5 @@
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Users, Award, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -15,11 +13,37 @@ import UserPlanCard from "@/components/dashboard/UserPlanCard";
 import StatCard from "@/components/dashboard/StatCard";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 
+// Define types for our data structures
+type UserStat = {
+  value: number | string;
+  label: string;
+};
+
+type Activity = {
+  id: number;
+  type: string;
+  title: string;
+  time: string;
+};
+
+type Achievement = {
+  type: "beginner" | "intermediate" | "advanced" | "expert" | "master" | "legend";
+  title: string;
+  description: string;
+  earned: boolean;
+};
+
+type UserPlan = {
+  name: string;
+  expires: string;
+  features: string[];
+};
+
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
 
   // Sample user stats data
-  const stats = [
+  const stats: UserStat[] = [
     { value: 18, label: "Courses" },
     { value: "25h", label: "Learning" },
     { value: 12, label: "Connections" },
@@ -27,7 +51,7 @@ const Dashboard = () => {
   ];
 
   // Sample activity data
-  const activities = [
+  const activities: Activity[] = [
     {
       id: 1,
       type: "course",
@@ -55,7 +79,7 @@ const Dashboard = () => {
   ];
 
   // Sample achievements data with correct type values
-  const achievements = [
+  const achievements: Achievement[] = [
     {
       type: "beginner", 
       title: "First Steps",
@@ -83,7 +107,7 @@ const Dashboard = () => {
   ];
 
   // Sample user plan data
-  const userPlan = {
+  const userPlan: UserPlan = {
     name: "Pro Plan",
     expires: "October 15, 2023",
     features: [
@@ -126,24 +150,20 @@ const Dashboard = () => {
           />
         </div>
 
-        <Card className="border border-mint/10 bg-forest-light">
-          <CardHeader>
-            <CardTitle className="text-xl text-white">Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ActivityFeed activities={activities} />
-            <div className="mt-4 flex justify-end">
-              <Button
-                variant="outline"
-                className="text-mint border-mint/20 hover:bg-mint/10"
-                onClick={handleShareProgress}
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                Share Progress
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="card-container">
+          <h2 className="text-xl text-white mb-4">Recent Activity</h2>
+          <ActivityFeed activities={activities} />
+          <div className="mt-4 flex justify-end">
+            <Button
+              variant="outline"
+              className="text-mint border-mint/20 hover:bg-mint/10"
+              onClick={handleShareProgress}
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Share Progress
+            </Button>
+          </div>
+        </div>
 
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-white">Achievements</h2>
@@ -160,9 +180,9 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {achievements.map((achievement, index) => (
-            <Card
+            <div
               key={index}
-              className={`border border-mint/10 bg-forest-light p-4 text-center ${
+              className={`border border-mint/10 bg-forest-light p-4 text-center rounded-lg ${
                 achievement.earned ? "border-mint/30" : "opacity-60"
               }`}
             >
@@ -178,7 +198,7 @@ const Dashboard = () => {
                   Earned
                 </span>
               )}
-            </Card>
+            </div>
           ))}
         </div>
       </div>
