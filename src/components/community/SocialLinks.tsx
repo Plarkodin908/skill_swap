@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Trash2, ExternalLink } from "lucide-react";
+import { PlusCircle, Trash2, ExternalLink, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
@@ -64,7 +64,13 @@ const SocialLinks = ({ isPremium, maxLinks, showAddButton = true }: SocialLinksP
   return (
     <Card className="bg-forest-light border border-mint/10 p-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-bold text-white">Social Links</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-xl font-bold text-white">Social Links</h3>
+          <span className="coming-soon flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            Coming Soon
+          </span>
+        </div>
         {showAddButton && (
           <Button 
             variant="ghost" 
@@ -74,6 +80,13 @@ const SocialLinks = ({ isPremium, maxLinks, showAddButton = true }: SocialLinksP
             <PlusCircle className="h-5 w-5" />
           </Button>
         )}
+      </div>
+      
+      <div className="mb-4 p-4 bg-forest rounded-lg border border-mint/10">
+        <p className="text-white/70 text-sm">
+          This feature requires authorization and is currently in development. 
+          We'll notify you when it's available!
+        </p>
       </div>
       
       {isAdding && (

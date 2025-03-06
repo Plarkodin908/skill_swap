@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Users, GraduationCap, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import Loading from "@/components/ui/loading";
 
 const Hero = () => {
   return (
@@ -37,6 +38,9 @@ const Hero = () => {
                 How It Works
               </Button>
             </Link>
+            <div className="hidden md:block">
+              <Loading size="small" />
+            </div>
           </div>
         </div>
         <div className="relative animate-fade-in" style={{ animationDelay: "800ms" }}>

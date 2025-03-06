@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,6 +15,8 @@ import {
   CheckSquare
 } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import Loading from "@/components/ui/loading";
 
 type Match = {
   id: number;
@@ -28,6 +29,9 @@ type Match = {
 };
 
 const Matches = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  
   // In a real app, this data would come from an API
   const allMatches: Match[] = [
     {
@@ -125,17 +129,30 @@ const Matches = () => {
   });
 
   const handleConnect = (match: Match) => {
-    toast.success(`Connection request sent to ${match.name}!`);
+    setIsLoading(true);
+    // Show toast and navigate to the connect page
+    toast.success(`Navigating to connection page for ${match.name}`);
+    setTimeout(() => {
+      navigate(`/matches/${match.id}/connect`);
+    }, 500);
   };
 
   const handleMessage = (match: Match) => {
-    // In a real app, this would navigate to the messages page with this user's chat open
+    setIsLoading(true);
+    // Show toast and navigate to the message page
     toast.success(`Opening chat with ${match.name}`);
+    setTimeout(() => {
+      navigate(`/matches/${match.id}/message`);
+    }, 500);
   };
 
   const handleSchedule = (match: Match) => {
-    // In a real app, this would navigate to the calendar/scheduling page
-    toast.success(`Scheduling session with ${match.name}`);
+    setIsLoading(true);
+    // Show toast and navigate to the schedule page
+    toast.success(`Setting up scheduling with ${match.name}`);
+    setTimeout(() => {
+      navigate(`/matches/${match.id}/schedule`);
+    }, 500);
   };
 
   const toggleSkill = (skill: string) => {
@@ -145,6 +162,14 @@ const Matches = () => {
       setSelectedSkills([...selectedSkills, skill]);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[70vh]">
+        <Loading text="Preparing your personalized match experience..." />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

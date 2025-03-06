@@ -22,12 +22,12 @@ export default {
       colors: {
         black: "#000000",
         forest: {
-          DEFAULT: "#0A1F2F", // Main background color
-          light: "#132B41", // Slightly lighter variant for cards/sections
+          DEFAULT: "#052e16", // Main background color
+          light: "#0f3d24", // Slightly lighter variant for cards/sections
         },
         mint: {
-          DEFAULT: "#64FFDA", // Primary accent color
-          light: "#A2FFE8", // Lighter variant
+          DEFAULT: "#22c55e", // Primary accent color
+          light: "#4ade80", // Lighter variant
         },
         divine: {
           DEFAULT: "#FFD700", // Secondary accent color

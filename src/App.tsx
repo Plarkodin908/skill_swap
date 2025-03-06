@@ -20,6 +20,7 @@ import Sidebar from "./components/Sidebar";
 import Activity from "./pages/Activity";
 import Achievements from "./pages/Achievements";
 import Matches from "./pages/Matches";
+import MatchActionPage from "./pages/matches/MatchActionPage";
 import Community from "./pages/Community";
 import AddCourse from "./pages/AddCourse";
 import ImportContent from "./pages/ImportContent";
@@ -79,6 +80,7 @@ const AppLayout = () => {
           <Route path="/activity" element={<Activity />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/matches/:matchId/:action" element={<MatchActionPage />} />
           <Route path="/community" element={<Community />} />
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/import-content" element={<ImportContent />} />

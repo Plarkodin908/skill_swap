@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -30,9 +29,9 @@ const AddCourse = () => {
         return;
       }
       
-      // Check file size (limit to 100MB)
-      if (file.size > 100 * 1024 * 1024) {
-        toast.error('Video file is too large. Maximum size is 100MB.');
+      // Check file size (limit to 150MB)
+      if (file.size > 150 * 1024 * 1024) {
+        toast.error('Video file is too large. Maximum size is 150MB.');
         return;
       }
       
@@ -160,6 +159,7 @@ const AddCourse = () => {
                     <FileVideo className="h-12 w-12 mx-auto text-mint/70" />
                     <div>
                       <p className="text-white/70 mb-2">Drag and drop a video file or click to browse</p>
+                      <p className="text-white/50 text-sm mb-4">Maximum file size: 150MB for high quality files</p>
                       <Button 
                         type="button" 
                         variant="outline" 
