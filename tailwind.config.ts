@@ -35,11 +35,11 @@ export default {
         primary: {
           DEFAULT: "#9b87f5",
         },
-        primary-purple: "#9b87f5",
-        secondary-purple: "#7E69AB",
-        tertiary-purple: "#6E59A5",
-        dark-purple: "#1A1F2C",
-        light-purple: "#D6BCFA",
+        "primary-purple": "#9b87f5",
+        "secondary-purple": "#7E69AB",
+        "tertiary-purple": "#6E59A5",
+        "dark-purple": "#1A1F2C",
+        "light-purple": "#D6BCFA",
       },
       fontFamily: {
         sans: ["Inter var", "system-ui", "sans-serif"],
