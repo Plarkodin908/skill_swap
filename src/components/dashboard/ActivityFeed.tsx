@@ -2,24 +2,25 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-interface ActivityItem {
-  text: string;
-  timestamp: string;
+interface Activity {
+  id: number;
+  type: string;
+  title: string;
+  time: string;
 }
 
 interface ActivityFeedProps {
-  items: ActivityItem[];
+  activities: Activity[];
 }
 
-const ActivityFeed = ({ items }: ActivityFeedProps) => {
+const ActivityFeed = ({ activities }: ActivityFeedProps) => {
   return (
     <Card className="bg-forest-light border border-mint/10 p-6">
-      <h3 className="text-xl font-bold mb-4 text-white">Recent Activity</h3>
       <div className="space-y-4">
-        {items.map((item, index) => (
-          <div key={index} className="border-l-2 border-mint pl-4 pb-4">
-            <p className="text-white font-medium">{item.text}</p>
-            <p className="text-white/60 text-sm">{item.timestamp}</p>
+        {activities.map((activity) => (
+          <div key={activity.id} className="border-l-2 border-mint pl-4 pb-4">
+            <p className="text-white font-medium">{activity.title}</p>
+            <p className="text-white/60 text-sm">{activity.time}</p>
           </div>
         ))}
       </div>
