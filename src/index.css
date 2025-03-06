@@ -3,10 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --forest: #052e16;
-  --forest-light: #0f3d24;
-  --mint: #22c55e;
-  --bg-color: #052e16;
+  --bg-color: #1A1F2C;
   --primary-purple: #9b87f5;
   --secondary-purple: #7E69AB;
   --dark-purple: #1A1F2C;
@@ -25,7 +22,7 @@
   }
 
   .floating-card-outer {
-    @apply bg-gradient-to-br from-primary-purple to-mint rounded-xl transition-all duration-300;
+    @apply bg-gradient-to-br from-primary-purple to-light-purple rounded-xl transition-all duration-300;
   }
 
   .floating-card-inner {

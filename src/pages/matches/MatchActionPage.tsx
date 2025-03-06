@@ -48,14 +48,14 @@ const MatchActionPage = () => {
               </p>
             </div>
             
-            <Card className="bg-forest-light border-mint/10 p-6">
+            <Card className="bg-dark-purple border-primary-purple/10 p-6">
               <div className="space-y-4">
                 <label className="block text-white/80 font-medium">Add a personal message</label>
                 <textarea 
-                  className="w-full bg-forest border border-mint/20 rounded-md p-3 text-white min-h-[120px]"
+                  className="w-full bg-dark-purple border border-primary-purple/20 rounded-md p-3 text-white min-h-[120px]"
                   placeholder={`Hi ${matchData.name}, I'd like to connect with you...`}
                 />
-                <Button className="w-full bg-mint hover:bg-mint/90 text-forest">
+                <Button className="w-full bg-primary-purple hover:bg-primary-purple/90 text-dark-purple">
                   <CheckSquare className="mr-2 h-4 w-4" />
                   Send Connection Request
                 </Button>
@@ -74,18 +74,18 @@ const MatchActionPage = () => {
               </p>
             </div>
             
-            <Card className="bg-forest-light border-mint/10 p-6">
+            <Card className="bg-dark-purple border-primary-purple/10 p-6">
               <div className="space-y-4">
-                <div className="bg-forest p-4 rounded-md border border-mint/10 h-[240px] flex items-center justify-center">
+                <div className="bg-dark-purple p-4 rounded-md border border-primary-purple/10 h-[240px] flex items-center justify-center">
                   <p className="text-white/50">No previous messages</p>
                 </div>
                 <div className="flex gap-2">
                   <input 
                     type="text"
-                    className="flex-1 bg-forest border border-mint/20 rounded-md p-3 text-white"
+                    className="flex-1 bg-dark-purple border border-primary-purple/20 rounded-md p-3 text-white"
                     placeholder="Type your message..."
                   />
-                  <Button className="bg-mint hover:bg-mint/90 text-forest">
+                  <Button className="bg-primary-purple hover:bg-primary-purple/90 text-dark-purple">
                     <MessageSquare className="mr-2 h-4 w-4" />
                     Send
                   </Button>
@@ -105,21 +105,21 @@ const MatchActionPage = () => {
               </p>
             </div>
             
-            <Card className="bg-forest-light border-mint/10 p-6">
+            <Card className="bg-dark-purple border-primary-purple/10 p-6">
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-white/80 font-medium mb-2">Date</label>
                     <input 
                       type="date"
-                      className="w-full bg-forest border border-mint/20 rounded-md p-3 text-white"
+                      className="w-full bg-dark-purple border border-primary-purple/20 rounded-md p-3 text-white"
                     />
                   </div>
                   <div>
                     <label className="block text-white/80 font-medium mb-2">Time</label>
                     <input 
                       type="time"
-                      className="w-full bg-forest border border-mint/20 rounded-md p-3 text-white"
+                      className="w-full bg-dark-purple border border-primary-purple/20 rounded-md p-3 text-white"
                     />
                   </div>
                 </div>
@@ -127,11 +127,11 @@ const MatchActionPage = () => {
                   <label className="block text-white/80 font-medium mb-2">Session Topic</label>
                   <input 
                     type="text"
-                    className="w-full bg-forest border border-mint/20 rounded-md p-3 text-white"
+                    className="w-full bg-dark-purple border border-primary-purple/20 rounded-md p-3 text-white"
                     placeholder="What would you like to discuss?"
                   />
                 </div>
-                <Button className="w-full bg-mint hover:bg-mint/90 text-forest">
+                <Button className="w-full bg-primary-purple hover:bg-primary-purple/90 text-dark-purple">
                   <Calendar className="mr-2 h-4 w-4" />
                   Schedule Session
                 </Button>
@@ -145,7 +145,7 @@ const MatchActionPage = () => {
           <div className="text-center">
             <p className="text-white/70">Invalid action</p>
             <Button 
-              className="mt-4 bg-mint hover:bg-mint/90 text-forest"
+              className="mt-4 bg-primary-purple hover:bg-primary-purple/90 text-dark-purple"
               onClick={() => navigate('/matches')}
             >
               Back to Matches
@@ -160,7 +160,7 @@ const MatchActionPage = () => {
       <Button 
         variant="outline" 
         size="icon" 
-        className="mb-6 border-mint/20 text-white hover:bg-mint/10"
+        className="mb-6 border-primary-purple/20 text-white hover:bg-primary-purple/10"
         onClick={() => navigate('/matches')}
       >
         <ArrowLeft className="h-4 w-4" />
@@ -186,15 +186,15 @@ const MatchActionPage = () => {
         </div>
       ) : (
         <div className="text-center py-20">
-          <div className="bg-forest-light p-4 inline-block rounded-full mb-4">
-            <User className="h-8 w-8 text-mint/40" />
+          <div className="bg-dark-purple p-4 inline-block rounded-full mb-4">
+            <User className="h-8 w-8 text-primary-purple/40" />
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Match not found</h2>
           <p className="text-white/70 mb-6">
             We couldn't find the match you're looking for.
           </p>
           <Button 
-            className="bg-mint hover:bg-mint/90 text-forest"
+            className="bg-primary-purple hover:bg-primary-purple/90 text-dark-purple"
             onClick={() => navigate('/matches')}
           >
             Back to Matches

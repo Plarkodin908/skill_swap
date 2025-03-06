@@ -17,12 +17,12 @@ const MessageBubble = ({ message }: { message: MessageProps }) => {
         className={`
           max-w-[80%] rounded-lg px-4 py-2
           ${isCurrentUser 
-            ? 'bg-mint text-forest' 
-            : 'bg-forest border border-mint/10 text-white'}
+            ? 'bg-primary-purple text-dark-purple' 
+            : 'bg-dark-purple border border-primary-purple/10 text-white'}
         `}
       >
         <p>{message.text}</p>
-        <p className={`text-xs mt-1 ${isCurrentUser ? 'text-forest/70' : 'text-white/60'}`}>
+        <p className={`text-xs mt-1 ${isCurrentUser ? 'text-dark-purple/70' : 'text-white/60'}`}>
           {message.timestamp}
         </p>
       </div>

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,14 +20,6 @@ export default {
     extend: {
       colors: {
         black: "#000000",
-        forest: {
-          DEFAULT: "#052e16", // Keep as a fallback
-          light: "#0f3d24", // Keep as a fallback
-        },
-        mint: {
-          DEFAULT: "#22c55e", // Keep as a fallback
-          light: "#4ade80", // Keep as a fallback
-        },
         divine: {
           DEFAULT: "#FFD700", // Keep as a fallback
         },
