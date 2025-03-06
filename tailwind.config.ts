@@ -22,16 +22,24 @@ export default {
       colors: {
         black: "#000000",
         forest: {
-          DEFAULT: "#052e16", // Main background color
-          light: "#0f3d24", // Slightly lighter variant for cards/sections
+          DEFAULT: "#052e16", // Keep as a fallback
+          light: "#0f3d24", // Keep as a fallback
         },
         mint: {
-          DEFAULT: "#22c55e", // Primary accent color
-          light: "#4ade80", // Lighter variant
+          DEFAULT: "#22c55e", // Keep as a fallback
+          light: "#4ade80", // Keep as a fallback
         },
         divine: {
-          DEFAULT: "#FFD700", // Secondary accent color
-        }
+          DEFAULT: "#FFD700", // Keep as a fallback
+        },
+        primary: {
+          DEFAULT: "#9b87f5",
+        },
+        primary-purple: "#9b87f5",
+        secondary-purple: "#7E69AB",
+        tertiary-purple: "#6E59A5",
+        dark-purple: "#1A1F2C",
+        light-purple: "#D6BCFA",
       },
       fontFamily: {
         sans: ["Inter var", "system-ui", "sans-serif"],

@@ -58,7 +58,7 @@ const AppLayout = () => {
   };
   
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-dark-purple">
       {/* Add Schema Markup for SEO */}
       <SchemaMarkup type={getSchemaType()} />
       
