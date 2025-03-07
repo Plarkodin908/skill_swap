@@ -34,11 +34,9 @@ function App() {
       <Router>
         <Toaster />
         <SchemaMarkup 
-          schema={{
-            type: "website",
-            name: "Skill Swap",
-            description: "Connect with other learners, share skills, and grow together" 
-          }}
+          type="website"
+          name="Skill Swap"
+          description="Connect with other learners, share skills, and grow together" 
         />
         <Routes>
           <Route path="/" element={<Index />} />

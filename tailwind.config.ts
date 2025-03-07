@@ -32,6 +32,8 @@ export default {
         "tertiary-purple": "#6E59A5",
         "dark-purple": "#1A1F2C",
         "light-purple": "#D6BCFA",
+        mint: "#F2FCE2",
+        forest: "#2D3B36",
       },
       fontFamily: {
         sans: ["Inter var", "system-ui", "sans-serif"],
@@ -39,7 +41,9 @@ export default {
       transitionDuration: {
         '240': '240ms',
         '280': '280ms',
-        '400': '400ms',  // Added the new duration
+        '400': '400ms',
+        '450': '450ms',
+        '500': '500ms',
       },
       keyframes: {
         "accordion-down": {
@@ -101,6 +105,43 @@ export default {
           "50%": {
             opacity: "0.5"
           }
+        },
+        "glow": {
+          "0%": {
+            boxShadow: "0 0 5px rgba(155, 135, 245, 0.5)"
+          },
+          "50%": {
+            boxShadow: "0 0 20px rgba(155, 135, 245, 0.8)"
+          },
+          "100%": {
+            boxShadow: "0 0 5px rgba(155, 135, 245, 0.5)"
+          }
+        },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0)"
+          },
+          "50%": {
+            transform: "translateY(-10px)"
+          }
+        },
+        "breathe": {
+          "0%, 100%": {
+            transform: "scale(1)"
+          },
+          "50%": {
+            transform: "scale(1.05)"
+          }
+        },
+        "ripple": {
+          "0%": {
+            transform: "scale(0)",
+            opacity: "1"
+          },
+          "100%": {
+            transform: "scale(5)",
+            opacity: "0"
+          }
         }
       },
       animation: {
@@ -111,7 +152,11 @@ export default {
         "scale-in": "scale-in 0.2s ease-out",
         "slide-in": "slide-in 0.3s ease-out",
         "slide-in-top": "slide-in-top 0.3s both",
-        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "glow": "glow 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+        "breathe": "breathe 3s ease-in-out infinite",
+        "ripple": "ripple 1s linear"
       }
     },
   },
