@@ -68,7 +68,8 @@
   }
 
   .socialSvg {
-    @apply w-[17px] fill-white animate-slide-in-top;
+    @apply w-[17px] fill-white;
+    animation: slide-in-top 0.3s both;
   }
 
   /* Course Card */
@@ -537,5 +538,11 @@
 
   .coming-soon {
     @apply bg-primary-purple/10 text-primary-purple px-3 py-1 rounded-full text-sm font-medium border border-primary-purple/20;
+  }
+}
+
+@layer utilities {
+  .animate-slide-in-top {
+    animation: slide-in-top 0.3s both;
   }
 }

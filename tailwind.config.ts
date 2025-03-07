@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -78,6 +79,16 @@ export default {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0)" }
         },
+        "slide-in-top": {
+          "0%": { 
+            transform: "translateY(-50px)",
+            opacity: "0"
+          },
+          "100%": { 
+            transform: "translateY(0)",
+            opacity: "1"
+          }
+        },
         "pulse": {
           "0%, 100%": {
             opacity: "1"
@@ -94,6 +105,7 @@ export default {
         "fade-out": "fade-out 0.3s ease-out",
         "scale-in": "scale-in 0.2s ease-out",
         "slide-in": "slide-in 0.3s ease-out",
+        "slide-in-top": "slide-in-top 0.3s both",
         "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
       }
     },
