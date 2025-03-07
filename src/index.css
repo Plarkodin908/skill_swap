@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,6 +46,172 @@
     @apply transition-transform duration-300 hover:scale-105;
   }
 
+  /* Social Links */
+  .socialContainer {
+    @apply w-[52px] h-[52px] bg-neutral-800 flex items-center justify-center overflow-hidden transition-colors duration-300 cursor-pointer active:scale-90;
+  }
+
+  .containerOne:hover {
+    @apply bg-[#d62976] transition-colors duration-300;
+  }
+
+  .containerTwo:hover {
+    @apply bg-[#00acee] transition-colors duration-300;
+  }
+
+  .containerThree:hover {
+    @apply bg-[#0072b1] transition-colors duration-300;
+  }
+
+  .containerFour:hover {
+    @apply bg-[#128C7E] transition-colors duration-300;
+  }
+
+  .socialSvg {
+    @apply w-[17px] fill-white animate-slide-in-top;
+  }
+
+  /* Course Card */
+  .card {
+    @apply w-[15em] h-[10em] bg-dark-purple border border-primary-purple/30 rounded-lg cursor-pointer;
+  }
+
+  .fl {
+    @apply flex justify-end opacity-0 transition-all duration-200 ease-in-out;
+  }
+
+  .fl:hover .fullscreen {
+    @apply scale-110;
+  }
+
+  .fl:hover .fullscreen_svg {
+    @apply fill-white;
+  }
+
+  .fullscreen {
+    @apply w-[1.5em] h-[1.5em] rounded-md bg-primary-purple/30 m-4 -mr-[0.5em] flex items-center justify-center transition-all duration-200 ease-in-out shadow-md;
+  }
+
+  .fullscreen_svg {
+    @apply w-[15px] h-[15px] fill-white/70 transition-all duration-200 ease-in-out;
+  }
+
+  .card_back {
+    @apply absolute w-[15em] h-[13em] bg-primary-purple/10 rounded-lg -mt-[5em] ml-[0.7em] transition-all duration-200 ease-in-out -z-10;
+  }
+
+  .main:hover .card_back {
+    @apply -mt-[6.25em] ml-0 scale-110 h-[15.25em] cursor-pointer;
+  }
+
+  .main:hover .fl {
+    @apply opacity-100 cursor-pointer mr-[0.5em];
+  }
+
+  .data {
+    @apply flex flex-row mt-4;
+  }
+
+  .img {
+    @apply w-[2.25em] h-[2.25em] bg-dark-purple rounded-md overflow-hidden;
+  }
+
+  .text {
+    @apply flex justify-center flex-col ml-[0.5em] text-white;
+  }
+
+  .text_m {
+    @apply font-bold text-[0.9em];
+  }
+
+  .text_s {
+    @apply text-[0.7em] text-white/70;
+  }
+
+  .btns {
+    @apply flex gap-[0.5em] transition-all duration-200 ease-in-out;
+  }
+
+  .likes, .comments, .views {
+    @apply flex items-center justify-center h-[1.4em] rounded-md -mt-[0.5em] opacity-0 transition-all duration-200 ease-in-out;
+  }
+
+  .likes {
+    @apply w-[2.5em] bg-primary-purple/20;
+  }
+
+  .comments {
+    @apply w-[2.5em] bg-primary-purple/20 transition-all duration-[0.24s] ease-in-out;
+  }
+
+  .views {
+    @apply w-[3em] bg-primary-purple/20 transition-all duration-[0.28s] ease-in-out;
+  }
+
+  .likes_text, .comments_text, .views_text {
+    @apply text-[0.8em] ml-[0.25em] text-white;
+  }
+
+  .likes_svg, .comments_svg, .views_svg {
+    @apply w-[12px] h-[12px] fill-white;
+  }
+
+  .likes:hover, .comments:hover, .views:hover {
+    @apply bg-primary-purple/40 cursor-pointer;
+  }
+
+  .main:hover .likes, .main:hover .comments, .main:hover .views {
+    @apply mt-[0.5em] opacity-100;
+  }
+
+  /* The Main Switch */
+  .card_content {
+    @apply flex items-center justify-center;
+  }
+
+  /* The switch - the box around the slider */
+  .switch_738 {
+    @apply text-[13px] relative inline-block w-[1.2em] h-[3.3em];
+  }
+
+  /* Hide default HTML checkbox */
+  .switch_738 .chk_738 {
+    @apply opacity-0 w-0 h-0;
+  }
+
+  /* The slider */
+  .slider_738 {
+    @apply absolute cursor-pointer inset-0 bg-primary-purple/50 transition-all duration-400 rounded-md;
+  }
+
+  .slider_738:before {
+    @apply absolute content-[''] h-[.5em] w-[2.4em] rounded-md left-[-0.6em] top-[0.2em] bg-white shadow-md transition-all duration-400;
+  }
+
+  .slider_738:after {
+    @apply content-[''] bg-white border-l-[0.4em] border-solid border-white relative top-[0.5em] left-[0.55em] w-[2em] h-[1em] box-border;
+    transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+    transform: translateX(-22.5%) rotate(90deg);
+    transform-origin: 25% 50%;
+  }
+
+  .chk_738:checked + .slider_738 {
+    @apply bg-primary-purple;
+  }
+
+  .chk_738:focus + .slider_738 {
+    @apply shadow-primary-purple;
+  }
+
+  .chk_738:checked + .slider_738:before {
+    @apply translate-y-[2.3em];
+  }
+
+  .chk_738:checked + .slider_738:after {
+    transform: rotateZ(90deg) rotateY(180deg) translateY(0.45em) translateX(-1.4em);
+  }
+
+  /* Badge classes */
   .badge-beginner {
     @apply bg-blue-500/20 text-blue-500;
   }
@@ -214,15 +381,15 @@
   @keyframes btnPulse {
     0% {
       transform: scale(1);
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 0 0 rgba(155, 135, 245, 0.7);
     }
     70% {
       transform: scale(1.05);
-      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      box-shadow: 0 0 0 10px rgba(155, 135, 245, 0);
     }
     100% {
       transform: scale(1);
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      box-shadow: 0 0 0 0 rgba(155, 135, 245, 0);
     }
   }
 
@@ -262,6 +429,17 @@
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-10px); }
     60% { transform: translateY(-5px); }
+  }
+
+  @keyframes slide-in-top {
+    0% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   /* Mobile responsiveness enhancements */

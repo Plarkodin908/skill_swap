@@ -26,6 +26,7 @@ import AddCourse from "./pages/AddCourse";
 import ImportContent from "./pages/ImportContent";
 import PaymentPage from "./pages/PaymentPage";
 import SchemaMarkup from "./components/SEO/SchemaMarkup";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const isHomePage = (pathname: string) => {
          pathname === "/legal" ||
          pathname === "/community" ||
          pathname === "/payment" ||
+         pathname === "/profile" ||
          pathname.startsWith("/plan/");
 };
 
@@ -54,6 +56,7 @@ const AppLayout = () => {
     if (currentPath.includes("/tutorials")) return "article";
     if (currentPath.includes("/pricing") || currentPath.includes("/plan/")) return "product";
     if (currentPath.includes("/community")) return "socialMedia";
+    if (currentPath.includes("/profile")) return "person";
     return "website";
   };
   
@@ -85,6 +88,7 @@ const AppLayout = () => {
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/import-content" element={<ImportContent />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </div>
