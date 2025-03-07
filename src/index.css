@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -142,11 +141,11 @@
   }
 
   .comments {
-    @apply w-[2.5em] bg-primary-purple/20 transition-all duration-[0.24s] ease-in-out;
+    @apply w-[2.5em] bg-primary-purple/20 transition-all duration-240 ease-in-out;
   }
 
   .views {
-    @apply w-[3em] bg-primary-purple/20 transition-all duration-[0.28s] ease-in-out;
+    @apply w-[3em] bg-primary-purple/20 transition-all duration-280 ease-in-out;
   }
 
   .likes_text, .comments_text, .views_text {

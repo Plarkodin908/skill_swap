@@ -36,6 +36,10 @@ export default {
       fontFamily: {
         sans: ["Inter var", "system-ui", "sans-serif"],
       },
+      transitionDuration: {
+        '240': '240ms',
+        '280': '280ms',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0", opacity: "0" },
