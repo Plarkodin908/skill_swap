@@ -39,6 +39,7 @@ export default {
       transitionDuration: {
         '240': '240ms',
         '280': '280ms',
+        '400': '400ms',  // Added the new duration
       },
       keyframes: {
         "accordion-down": {
